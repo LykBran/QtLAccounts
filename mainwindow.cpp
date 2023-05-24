@@ -106,7 +106,7 @@ void MainWindow::on_actionOpen_Accounts_File_triggered()
     file_label = new QLabel(this);
     file_label->setText(filename);
     ui.statusBar->addPermanentWidget(file_label);
-    ui.statusBar->showMessage(tr("Succesfully opened the account!"), 3000);
+    ui.statusBar->showMessage(tr("Succesfully opened the file!"), 3000);
 }
 
 void MainWindow::on_actionCopy_Username_triggered()
