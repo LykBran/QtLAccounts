@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
+#include <QLabel>
 #include "ui_mainwindow.h"
 #include "AccountsManager.h"
 
@@ -15,6 +16,7 @@ public:
 private:
     Ui::MainWindowClass ui;
     AccountsManager* manager = nullptr;
+    QLabel* file_label = nullptr;
 
 private slots:
     void on_actionAdd_triggered();

@@ -53,6 +53,7 @@
    <addaction name="menuFile"/>
    <addaction name="menuEdit"/>
   </widget>
+  <widget class="QStatusBar" name="statusBar"/>
   <action name="actionAdd">
    <property name="enabled">
     <bool>false</bool>

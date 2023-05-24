@@ -6,6 +6,7 @@
 #include <QFileDialog>
 #include <QList>
 #include <QListWidget>
+#include <QStatusBar>
 #include <QString>
 
 MainWindow::MainWindow(QWidget* parent)
@@ -23,10 +24,9 @@ MainWindow::~MainWindow()
 void MainWindow::on_actionAdd_triggered()
 {
     AccountDialog* dialog = new AccountDialog(this);
-    dialog->setWindowTitle("Add Account");
+    dialog->setWindowTitle(tr("Add Account"));
     if (dialog->exec() == QDialog::Rejected)
     {
-        delete dialog;
         return;
     }
     dialog->close();
@@ -35,7 +35,7 @@ void MainWindow::on_actionAdd_triggered()
     manager->write_account(account);
     QString text = account.name.c_str() + tr("  username:") + account.username.c_str() + tr("  password:") + account.password.c_str();
     ui.listWidget->addItem(text);
-    delete dialog;
+    ui.statusBar->showMessage(tr("Succesfully added the account!"), 3000);
 }
 
 void MainWindow::on_actionRemove_triggered()
@@ -48,6 +48,7 @@ void MainWindow::on_actionRemove_triggered()
     manager->erase_account(index + 1);
     ui.listWidget->removeItemWidget(item);
     delete item;
+    ui.statusBar->showMessage(tr("Succesfully removed the account!"), 3000);
 }
 
 void MainWindow::on_actionUpdate_triggered()
@@ -61,10 +62,9 @@ void MainWindow::on_actionUpdate_triggered()
     Account old = manager->all_accounts()[index];
     dialog->set_default_words(old.name.c_str(), old.username.c_str(), old.password.c_str());
 
-    dialog->setWindowTitle("Update Account");
+    dialog->setWindowTitle(tr("Update Account"));
     if (dialog->exec() == QDialog::Rejected)
     {
-        delete dialog;
         return;
     }
     dialog->close();
@@ -73,15 +73,19 @@ void MainWindow::on_actionUpdate_triggered()
     manager->edit_account(index + 1, account);
     QString text = account.name.c_str() + tr("  username:") + account.username.c_str() + tr("  password:") + account.password.c_str();
     item->setText(text);
-    delete dialog;
+    ui.statusBar->showMessage(tr("Succesfully updated the account!"), 3000);
 }
 
 void MainWindow::on_actionOpen_Accounts_File_triggered()
 {
+    QString filename = QFileDialog::getOpenFileName(this, tr("Choose the file to store accounts"), ".", tr("LAccounts Database (*.lad)"));
+    if (filename == "") { return; }
     if (ui.listWidget->isEnabled())
     {
         ui.listWidget->clear();
         delete manager;
+        ui.statusBar->removeWidget(file_label);
+        delete file_label;
     }
     else
     {
@@ -92,7 +96,6 @@ void MainWindow::on_actionOpen_Accounts_File_triggered()
         ui.actionCopy_Password->setEnabled(true);
         ui.actionCopy->setEnabled(true);
     }
-    QString filename = QFileDialog::getOpenFileName(this, tr("Choose the file to store accounts"), ".", tr("LAccounts Database (*.lad)"));
     manager = new AccountsManager(filename.toStdString());
     ui.listWidget->setEnabled(true);
     for (Account account : manager->all_accounts())
@@ -100,6 +103,10 @@ void MainWindow::on_actionOpen_Accounts_File_triggered()
         QString text = account.name.c_str() + tr("  username:") + account.username.c_str() + tr("  password:") + account.password.c_str();
         ui.listWidget->addItem(text);
     }
+    file_label = new QLabel(this);
+    file_label->setText(filename);
+    ui.statusBar->addPermanentWidget(file_label);
+    ui.statusBar->showMessage(tr("Succesfully opened the account!"), 3000);
 }
 
 void MainWindow::on_actionCopy_Username_triggered()
