@@ -42,7 +42,16 @@
     <addaction name="separator"/>
     <addaction name="actionOpen_Accounts_File"/>
    </widget>
+   <widget class="QMenu" name="menuEdit">
+    <property name="title">
+     <string>Edit</string>
+    </property>
+    <addaction name="actionCopy_Username"/>
+    <addaction name="actionCopy_Password"/>
+    <addaction name="actionCopy"/>
+   </widget>
    <addaction name="menuFile"/>
+   <addaction name="menuEdit"/>
   </widget>
   <action name="actionAdd">
    <property name="enabled">
@@ -71,6 +80,30 @@
   <action name="actionOpen_Accounts_File">
    <property name="text">
     <string>Open Accounts File</string>
+   </property>
+  </action>
+  <action name="actionCopy_Username">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Copy Username</string>
+   </property>
+  </action>
+  <action name="actionCopy_Password">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Copy Password</string>
+   </property>
+  </action>
+  <action name="actionCopy">
+   <property name="enabled">
+    <bool>false</bool>
+   </property>
+   <property name="text">
+    <string>Copy</string>
    </property>
   </action>
  </widget>
