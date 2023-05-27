@@ -103,7 +103,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <QtRcc Include="mainwindow.qrc" />
     <QtUic Include="accountdialog.ui" />
     <QtUic Include="mainwindow.ui" />
     <QtMoc Include="mainwindow.h" />
@@ -119,7 +118,6 @@
   <ItemGroup>
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
-    <None Include="lemon.lad" />
     <None Include="README.md" />
   </ItemGroup>
   <ItemGroup>
