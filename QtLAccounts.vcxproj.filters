@@ -63,7 +63,6 @@
     <None Include=".gitattributes" />
     <None Include=".gitignore" />
     <None Include="README.md" />
-    <None Include="lemon.lad" />
   </ItemGroup>
   <ItemGroup>
     <Text Include="LICENSE.txt" />
