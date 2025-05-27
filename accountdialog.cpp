@@ -30,9 +30,9 @@ void AccountDialog::closeEvent(QCloseEvent* event)
 
 void AccountDialog::on_pushButton_ok_clicked()
 {
-    result.name = ui.lineEdit_name->text().toStdString();
-    result.username = ui.lineEdit_username->text().toStdString();
-    result.password = ui.lineEdit_password->text().toStdString();
+    result.name = ui.lineEdit_name->text().toLocal8Bit().constData();
+    result.username = ui.lineEdit_username->text().toLocal8Bit().constData();
+    result.password = ui.lineEdit_password->text().toLocal8Bit().constData();
     accept();
 }
 

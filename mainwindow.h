@@ -21,7 +21,7 @@ private:
 private slots:
     void on_actionAdd_triggered();
     void on_actionRemove_triggered();
-    void on_actionUpdate_triggered();
+    void on_actionEdit_triggered();
     void on_actionOpen_Accounts_File_triggered();
 
     void on_actionCopy_Username_triggered();

@@ -115,6 +115,10 @@ size_t AccountsManager::countLines(string filename)
 AccountsManager::AccountsManager(const string& file)
 {
     f.open(file, ios_base::in | ios_base::out | ios_base::app);
+    if (!f.is_open())
+    {
+        throw std::runtime_error("Failed to open file: " + file);
+    }
     filename = file;
     get_accounts();
 }

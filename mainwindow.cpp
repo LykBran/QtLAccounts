@@ -40,9 +40,8 @@ void MainWindow::on_actionAdd_triggered()
 
 void MainWindow::on_actionRemove_triggered()
 {
-    QList<QListWidgetItem*> items = ui.listWidget->selectedItems();
-    if (items.isEmpty()) { return; }
-    QListWidgetItem* item = items[0];
+    QListWidgetItem* item = ui.listWidget->currentItem();
+    if (!item) { return; }
     size_t index = ui.listWidget->currentRow();
 
     manager->erase_account(index + 1);
@@ -51,11 +50,10 @@ void MainWindow::on_actionRemove_triggered()
     ui.statusBar->showMessage(tr("Succesfully removed the account!"), 3000);
 }
 
-void MainWindow::on_actionUpdate_triggered()
+void MainWindow::on_actionEdit_triggered()
 {
-    QList<QListWidgetItem*> items = ui.listWidget->selectedItems();
-    if (items.isEmpty()) { return; }
-    QListWidgetItem* item = items[0];
+    QListWidgetItem* item = ui.listWidget->currentItem();
+    if (!item) { return; }
     size_t index = ui.listWidget->currentRow();
 
     AccountDialog* dialog = new AccountDialog(this);
@@ -91,12 +89,13 @@ void MainWindow::on_actionOpen_Accounts_File_triggered()
     {
         ui.actionAdd->setEnabled(true);
         ui.actionRemove->setEnabled(true);
-        ui.actionUpdate->setEnabled(true);
+        ui.actionEdit->setEnabled(true);
         ui.actionCopy_Username->setEnabled(true);
         ui.actionCopy_Password->setEnabled(true);
         ui.actionCopy->setEnabled(true);
     }
-    manager = new AccountsManager(filename.toStdString());
+    std::string filename_str = filename.toLocal8Bit().constData();
+    manager = new AccountsManager(filename_str);
     ui.listWidget->setEnabled(true);
     for (Account account : manager->all_accounts())
     {
